@@ -1,7 +1,12 @@
 package util;
 
-import java.util.Comparator;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.StringJoiner;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.function.Supplier;
 
 /**
  * @author Samuel f. Ruiz
@@ -11,19 +16,50 @@ import java.util.StringJoiner;
 public abstract class LinkedList<T> {
 
     protected Node<T> head;
-    protected Comparator<T> nodeComparator;
-
-    public LinkedList(Comparator<T> nodeComparator) {
-        this.nodeComparator = nodeComparator;
-    }
+    protected int size;
 
     public abstract void insert(T data);
-    public abstract void remove(T data);
+    public abstract void remove(Predicate<T> finder);
 
-    public boolean exist(T data){
+    public T getData(int index)throws IndexOutOfBoundsException{
+        if(index >= 0 && index < size){
+            Node<T> node = head;
+            for (int i = 1; i <= index; i++) {
+                node = node.getNext();
+            }
+            return node.getData();
+        }
+        throw new IndexOutOfBoundsException();
+    }
+
+    public <V> ArrayList<V> getFromAll(Function<T,V> getter){
+        if (!isEmpty()) {
+            ArrayList<V> list = new ArrayList<>(size);
+            Node<T> node = head;
+            while (node != null){
+                list.add(getter.apply(node.getData()));
+                node = node.getNext();
+            }
+            return list;
+        }
+        return null;
+    }
+
+    public T getData(Predicate<T> finder){
+        if(!isEmpty()){
+            Node<T> node = head;
+            while (node != null && !finder.test(node.getData())) {
+                node = node.getNext();
+            }
+            return node == null? null: node.getData();
+        }
+        return null;
+    }
+
+    public boolean exist(Predicate<T> finder){
         if(!isEmpty()) {
             Node<T> node = head;
-            while (node != null && nodeComparator.compare(node.getData(), data) != 0) {
+            while (node != null && !finder.test(node.getData())) {
                 node = node.getNext();
             }
             return node != null;
@@ -33,6 +69,10 @@ public abstract class LinkedList<T> {
 
     public boolean isEmpty(){
         return head == null;
+    }
+
+    public int size(){
+        return size;
     }
 
     public String show(){

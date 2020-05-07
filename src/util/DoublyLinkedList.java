@@ -1,6 +1,7 @@
 package util;
 
 import java.util.Comparator;
+import java.util.function.Predicate;
 
 /**
  * @author Samuel f. Ruiz
@@ -8,10 +9,6 @@ import java.util.Comparator;
  * @since 7/05/20
  */
 public class DoublyLinkedList<T> extends LinkedList<T>{
-
-    public DoublyLinkedList(Comparator<T> nodeComparator) {
-        super(nodeComparator);
-    }
 
     @Override
     public void insert(T data) {
@@ -26,21 +23,28 @@ public class DoublyLinkedList<T> extends LinkedList<T>{
             node.setNext(newNode);
             newNode.setPrevious(node);
         }
+        this.size++;
     }
 
     @Override
-    public void remove(T data) {
+    public void remove(Predicate<T> finder) {
         if(!isEmpty()) {
-            if(nodeComparator.compare(head.getData(), data) == 0){
+            if(finder.test(head.getData())){
                 head = head.getNext();
+                head.setPrevious(null);
+                size--;
             }else {
                 Node<T> previous = head;
                 Node<T> actual = head.getNext();
-                while (actual != null && nodeComparator.compare(actual.getData(), data) != 0) {
+                while (actual != null && !finder.test(actual.getData())) {
                     previous = actual;
                     actual = actual.getNext();
                 }
-                if(actual != null) previous.setNext(actual.getNext());
+                if(actual != null) {
+                    actual.getNext().setPrevious(previous);
+                    previous.setNext(actual.getNext());
+                    size--;
+                }
             }
         }
     }
