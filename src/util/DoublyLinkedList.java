@@ -1,6 +1,7 @@
 package util;
 
 import java.util.Comparator;
+import java.util.Objects;
 import java.util.function.Predicate;
 
 /**
@@ -12,6 +13,7 @@ public class DoublyLinkedList<T> extends LinkedList<T>{
 
     @Override
     public void insert(T data) {
+        Objects.requireNonNull(data);
         Node<T> newNode = new Node<>(data);
         if(isEmpty()){
             head = newNode;

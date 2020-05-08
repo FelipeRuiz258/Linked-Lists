@@ -21,17 +21,6 @@ public abstract class LinkedList<T> {
     public abstract void insert(T data);
     public abstract void remove(Predicate<T> finder);
 
-    public T getData(int index)throws IndexOutOfBoundsException{
-        if(index >= 0 && index < size){
-            Node<T> node = head;
-            for (int i = 1; i <= index; i++) {
-                node = node.getNext();
-            }
-            return node.getData();
-        }
-        throw new IndexOutOfBoundsException();
-    }
-
     public <V> ArrayList<V> getFromAll(Function<T,V> getter){
         if (!isEmpty()) {
             ArrayList<V> list = new ArrayList<>(size);

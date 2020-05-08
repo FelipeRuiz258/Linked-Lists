@@ -3,7 +3,6 @@ package models;
 import util.DoublyLinkedList;
 
 import java.util.ArrayList;
-import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * @author Samuel f. Ruiz
@@ -18,6 +17,7 @@ public class Warehouse {
     public Warehouse(String name, String address) {
         this.name = name;
         this.address = address;
+        inventory = new DoublyLinkedList<>();
     }
 
     public String getName() {
@@ -25,7 +25,7 @@ public class Warehouse {
     }
 
     public void addItem(Item item){
-        inventory.insert(item);
+        if(item != null) inventory.insert(item);
     }
 
     public Item getItem(String id){

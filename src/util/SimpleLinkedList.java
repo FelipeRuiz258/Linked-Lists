@@ -1,5 +1,6 @@
 package util;
 
+import java.util.Objects;
 import java.util.function.Predicate;
 
 /**
@@ -11,6 +12,7 @@ public class SimpleLinkedList<T> extends LinkedList<T>{
 
     @Override
     public void insert(T data){
+        Objects.requireNonNull(data);
         if(head == null){
             head = new Node<>(data);
         }else {
