@@ -13,8 +13,14 @@ public class WarehouseChain {
 
     private SimpleLinkedList<Warehouse> warehouses;
 
+    public WarehouseChain() {
+        this.warehouses = new SimpleLinkedList<>();
+    }
+
     public void createWarehouse(String name, String address){
-        warehouses.insert(new Warehouse(name, address));
+        if(name != null && address != null){
+            warehouses.insert(new Warehouse(name, address));
+        }
     }
 
     public double calculateChaneValue(){

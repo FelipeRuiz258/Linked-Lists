@@ -11,8 +11,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class WarehouseTest {
 
-    Warehouse warehouse = new Warehouse("casa", "calle 2");
-    DoublyLinkedList<Item> inventory;
+    public Warehouse warehouse = new Warehouse("casa", "calle 2");
+    public DoublyLinkedList<Item> inventory;
 
     public WarehouseTest() throws NoSuchFieldException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
         Field field = warehouse.getClass().getDeclaredField("inventory");
@@ -21,6 +21,7 @@ class WarehouseTest {
         Method method = warehouse.getClass().getMethod("getName");
         method.setAccessible(true);
         String name = (String) method.invoke(warehouse);
+        testAddItem();
     }
 
     public void reset(){
