@@ -66,9 +66,24 @@ class WarehouseTest {
 
     @Test
     void registryItem() {
+        System.out.println(inventory.show());
+        warehouse.registryItem("l2",31);
+        System.out.println(inventory.show());
+        warehouse.addItem(new Item("arroz","l1", 0,2000));
+        System.out.println(inventory.show());
+        warehouse.registryItem("l2",31);
+        System.out.println(inventory.show());
+        warehouse.registryItem("l1",31);
+        System.out.println(inventory.show());
     }
 
     @Test
     void registrySold() {
+        testAddItem();
+        System.out.println(inventory.show());
+        warehouse.registrySold("l4",31);
+        System.out.println(inventory.show());
+        warehouse.registrySold("l1",31);
+        System.out.println(inventory.show());
     }
 }
