@@ -1,6 +1,5 @@
 package util;
 
-import java.util.Comparator;
 import java.util.Objects;
 import java.util.function.Predicate;
 
@@ -36,15 +35,13 @@ public class DoublyLinkedList<T> extends LinkedList<T>{
                 head.setPrevious(null);
                 size--;
             }else {
-                Node<T> previous = head;
                 Node<T> actual = head.getNext();
                 while (actual != null && !finder.test(actual.getData())) {
-                    previous = actual;
                     actual = actual.getNext();
                 }
                 if(actual != null) {
-                    actual.getNext().setPrevious(previous);
-                    previous.setNext(actual.getNext());
+                    actual.getNext().setPrevious(actual.getPrevious());
+                    actual.getPrevious().setNext(actual.getNext());
                     size--;
                 }
             }

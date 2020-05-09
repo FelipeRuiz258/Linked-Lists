@@ -26,6 +26,10 @@ public class Item {
         return cost;
     }
 
+    public int getQuantity() {
+        return quantity;
+    }
+
     public void add(int quantity){
         this.quantity += quantity;
     }

@@ -22,6 +22,10 @@ public class Node<T> {
         return next;
     }
 
+    public Node<T> getPrevious() {
+        return previous;
+    }
+
     public void setPrevious(Node<T> previous) {
         this.previous = previous;
     }

@@ -39,7 +39,9 @@ public class Warehouse {
     }
 
     public double calculateInventoryValue(){
-        ArrayList<Double> list = inventory.getFromAll(Item::getCost);
+        ArrayList<Double> list = inventory.getFromAll(
+                item -> item.getCost() * item.getQuantity()
+        );
         double totalCost = 0;
         if (list != null){
             for (double data: list){
