@@ -1,12 +1,9 @@
 package util;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.StringJoiner;
-import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
-import java.util.function.Supplier;
 
 /**
  * @author Samuel f. Ruiz
@@ -21,6 +18,15 @@ public abstract class LinkedList<T> {
     public abstract void insert(T data);
     public abstract void remove(Predicate<T> finder);
 
+    /**
+     * Crea un arraylist con los datos que se quieren sacar de cada objeto de la lista
+     * Ejemplo: si en la lista hay articulos y queremos extraer el id de cada uno
+     * el parametro seria una funcion que recibe un Objeto de tipo artículo(T) y retorna el id del articulo(V)
+     * @param getter funcion encargada de extraer el atributo o dato de cada uno de los objetos
+     * @param <V> Es el tipo de dato que se quiere extraer de cada objeto:
+     *            por ejemplo el id de cada item
+     * @return una lista con datos extraidos de los objetos
+     */
     public <V> ArrayList<V> getFromAll(Function<T,V> getter){
         if (!isEmpty()) {
             ArrayList<V> list = new ArrayList<>(size);
